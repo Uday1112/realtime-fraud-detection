@@ -1,5 +1,7 @@
 # Real-Time Transaction Fraud Detection
 
+**🔴 [Live demo](https://realtime-fraud-detection-6ug7m6frhzgyqfeefi4pgg.streamlit.app)** — watch it stream and flag transactions in real time.
+
 A live streaming pipeline that generates e-commerce transactions in real
 time, scores each one instantly with an unsupervised anomaly-detection
 model, and surfaces flagged transactions on a live dashboard as they
