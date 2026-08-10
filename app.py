@@ -343,6 +343,15 @@ engine = get_engine(events_per_tick, fraud_rate)
 
 @st.fragment(run_every="1.5s")
 def live_section():
+    # `engine` (and its single DuckDB connection) is shared across every
+    # visitor session via st.cache_resource, and DuckDB connections aren't
+    # safe for concurrent multi-threaded use — hold the engine's lock for
+    # this whole render pass so two sessions can never touch it at once.
+    with engine.lock:
+        _render_live_section()
+
+
+def _render_live_section():
     if streaming:
         engine.tick()
 

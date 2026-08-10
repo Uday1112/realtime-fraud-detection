@@ -12,6 +12,7 @@ per-event round trip because scoring in small batches is both simpler and
 lower-overhead than a strict one-event-at-a-time pipeline.
 """
 
+import threading
 import time
 from pathlib import Path
 
@@ -58,9 +59,18 @@ class LiveStreamEngine:
                 row.customer_id, row.mean_amount, max(row.std_amount, 1.0), prior_count=max(int(row.count), 2)
             )
 
+        # st.cache_resource shares this engine (and its single DuckDB
+        # connection) across every visitor session on a deployed app, and
+        # DuckDB connections aren't safe to use from multiple threads at
+        # once — this lock serializes all access, write or read. RLock
+        # (not Lock) because tick() re-acquires it internally, and callers
+        # (app.py) also hold it for a whole render pass around tick().
+        self.lock = threading.RLock()
+
         self.conn = warehouse.get_connection()
-        warehouse.reset_schema(self.conn)
-        warehouse.load_dimensions(self.conn, customers, products)
+        with self.lock:
+            warehouse.reset_schema(self.conn)
+            warehouse.load_dimensions(self.conn, customers, products)
 
     def _score(self, df: pd.DataFrame) -> pd.DataFrame:
         X = df[FEATURE_COLUMNS]
@@ -94,5 +104,6 @@ class LiveStreamEngine:
         df["event_time"] = pd.to_datetime(df["timestamp"], unit="s")
 
         out = df[WAREHOUSE_COLUMNS].copy()
-        warehouse.insert_transactions(self.conn, out)
+        with self.lock:
+            warehouse.insert_transactions(self.conn, out)
         return out
