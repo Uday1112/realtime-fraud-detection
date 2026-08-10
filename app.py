@@ -344,7 +344,7 @@ with st.sidebar:
         mc3.metric("AUC", f"{metrics['roc_auc']:.2f}")
         st.caption("Recall by injected pattern:")
         for pattern, d in metrics["recall_by_pattern"].items():
-            st.text(f"{pattern}: {d['rate']:.0%} ({d['caught']}/{d['n']})")
+            st.text(f"{pattern.replace('_', ' ').title()}: {d['rate']:.0%} ({d['caught']}/{d['n']})")
     else:
         st.warning("Run `python src/train_model.py` first.")
 
@@ -376,7 +376,7 @@ def _render_live_section():
     st.markdown(
         f"""
         <div class="topbar">
-            <div class="crumb">🛡️ <b>Canada Commerce</b> / fraud_transactions</div>
+            <div class="crumb">🛡️ <b>Canada Commerce</b> / Fraud Monitoring</div>
             <div class="{badge_class}"><span class="pill-dot"></span>{badge_text}</div>
         </div>
         <div class="dataset-hero">
