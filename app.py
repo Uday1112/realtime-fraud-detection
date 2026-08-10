@@ -125,8 +125,7 @@ st.markdown(
         position: sticky; top: 0; background: #F9FAFB; z-index: 1;
         text-align: left; padding: 9px 14px; border-bottom: 1px solid #E5E7EB;
     }
-    .fraud-table thead .col-name { display:block; font-weight: 700; color:#111827; font-size: 12px; }
-    .fraud-table thead .col-type { display:block; font-weight: 500; color:#2563EB; font-size: 10.5px; font-family: Consolas, monospace; margin-top: 1px; }
+    .fraud-table thead .col-name { display:block; font-weight: 700; color:#111827; font-size: 12.5px; }
     .fraud-table tbody td { padding: 8px 14px; border-bottom: 1px solid #F1F3F5; color: #1F2937; }
     .fraud-table tbody tr:hover { background: #F9FAFB; }
     .fraud-table tbody tr.flagged-row { background: #FEF2F2; }
@@ -242,10 +241,7 @@ def badge_html(pattern) -> str:
     return f'<span class="badge" style="background:{color}17;color:{color};border:1px solid {color}40;">{label}</span>'
 
 
-TABLE_COLUMNS = [
-    ("Time", "DateTime64(3)"), ("Customer", "UInt32"), ("Product", "String"), ("Qty", "UInt8"),
-    ("Amount", "Float64"), ("Score", "Float64"), ("Flag", "Bool"), ("Pattern", "String"),
-]
+TABLE_COLUMNS = ["Time", "Customer", "Product", "Qty", "Amount", "Score", "Flag", "Pattern"]
 
 
 def render_transactions_table(df: pd.DataFrame) -> str:
@@ -267,7 +263,7 @@ def render_transactions_table(df: pd.DataFrame) -> str:
             f"<td>{badge_html(r['fraud_pattern'])}</td>"
             f"</tr>"
         )
-    header_cells = "".join(f"<th><span class='col-name'>{name}</span><span class='col-type'>{typ}</span></th>" for name, typ in TABLE_COLUMNS)
+    header_cells = "".join(f"<th><span class='col-name'>{name}</span></th>" for name in TABLE_COLUMNS)
     return f'<div class="table-scroll"><table class="fraud-table"><thead><tr>{header_cells}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
 
 
