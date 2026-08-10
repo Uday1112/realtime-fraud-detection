@@ -453,6 +453,7 @@ def _render_live_section():
                     color_discrete_sequence=CATEGORICAL_PALETTE, title="Revenue by category",
                 )
                 fig_cat.update_traces(textinfo="percent+label", textfont_size=11)
+                fig_cat.update_layout(showlegend=False)
                 st.plotly_chart(style_fig(fig_cat, height=380), use_container_width=True)
             else:
                 st.info("Waiting for transactions...")
