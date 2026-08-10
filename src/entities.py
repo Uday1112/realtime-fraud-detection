@@ -8,12 +8,17 @@ import numpy as np
 N_CUSTOMERS = 500
 N_PRODUCTS = 80
 
-# Greater Toronto Area municipalities — customers are modeled as shoppers
-# across the GTA rather than generic province-level regions, since this
-# project is framed as a Toronto-area e-commerce marketplace.
+# Major Canadian cities spanning every province — customers are modeled as
+# shoppers nationwide rather than a single metro area, since this project
+# is framed as a Canada-wide e-commerce marketplace.
 REGIONS = [
-    "Downtown Toronto", "North York", "Scarborough", "Etobicoke",
-    "Mississauga", "Brampton", "Vaughan", "Markham", "Richmond Hill",
+    "Toronto", "Ottawa", "Mississauga", "Hamilton",
+    "Montreal", "Quebec City",
+    "Vancouver", "Victoria",
+    "Calgary", "Edmonton",
+    "Winnipeg", "Saskatoon",
+    "Halifax", "Moncton",
+    "St. John's", "Charlottetown",
 ]
 CATEGORIES = ["Electronics", "Apparel", "Home & Kitchen", "Grocery", "Office", "Gift Cards"]
 

@@ -1,6 +1,6 @@
 """
-Real-time fraud/anomaly detection dashboard for a simulated Greater Toronto
-Area e-commerce marketplace.
+Real-time fraud/anomaly detection dashboard for a simulated Canada-wide
+e-commerce marketplace.
 
 Visual language modeled on modern data-platform UIs (dark icon rail +
 light content area, typed table headers, live row-count header) rather
@@ -43,7 +43,7 @@ DARK = "#111827"
 CATEGORICAL_PALETTE = [BLUE, GREEN, AMBER, RED, PURPLE, TEAL, PINK, GRAY]
 PATTERN_COLORS = {"amount_spike": AMBER, "velocity_burst": PURPLE, "odd_hour_bulk": PINK}
 
-st.set_page_config(page_title="GTA Commerce — Real-Time Fraud Detection", layout="wide", page_icon="🛡️")
+st.set_page_config(page_title="Canada Commerce — Real-Time Fraud Detection", layout="wide", page_icon="🛡️")
 
 
 def _bootstrap_if_needed() -> None:
@@ -307,7 +307,7 @@ with st.sidebar:
         <div class="sidebar-brand">
             <div class="icon">🛡️</div>
             <div>
-                <div class="name">GTA Commerce</div>
+                <div class="name">Canada Commerce</div>
                 <div class="sub">Fraud Ops Console</div>
             </div>
         </div>
@@ -366,13 +366,13 @@ def _render_live_section():
     st.markdown(
         f"""
         <div class="topbar">
-            <div class="crumb">🛡️ <b>GTA Commerce</b> / fraud_transactions</div>
+            <div class="crumb">🛡️ <b>Canada Commerce</b> / fraud_transactions</div>
             <div class="{badge_class}"><span class="pill-dot"></span>{badge_text}</div>
         </div>
         <div class="dataset-hero">
             <div class="title-row"><span class="icon">🗄️</span><h2>fraud_transactions</h2></div>
             <div class="meta">{stats['n_transactions']:,} rows · {db_size} · updating every ~1.5s</div>
-            <div class="desc">Simulated Greater Toronto Area e-commerce transaction stream, scored live by an unsupervised anomaly model</div>
+            <div class="desc">Simulated Canada-wide e-commerce transaction stream, scored live by an unsupervised anomaly model</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -438,10 +438,10 @@ def _render_live_section():
                 fig_region = px.bar(
                     region_df, x="revenue", y="region", orientation="h",
                     color="region", color_discrete_sequence=CATEGORICAL_PALETTE,
-                    title="Revenue by GTA region",
+                    title="Revenue by city",
                 )
                 fig_region.update_layout(showlegend=False)
-                st.plotly_chart(style_fig(fig_region, height=380), use_container_width=True)
+                st.plotly_chart(style_fig(fig_region, height=480), use_container_width=True)
             else:
                 st.info("Waiting for transactions...")
 
