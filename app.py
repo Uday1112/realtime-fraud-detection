@@ -69,6 +69,8 @@ from live_engine import LiveStreamEngine  # noqa: E402 (must follow bootstrap)
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap');
+
     /* ---- Dark icon-rail sidebar over a light content area ---- */
     section[data-testid="stSidebar"] {
         background-color: #14171C;
@@ -92,12 +94,20 @@ st.markdown(
     @keyframes pulse2 { 0%{opacity:1} 50%{opacity:.35} 100%{opacity:1} }
 
     /* ---- Dataset hero card ---- */
-    .dataset-hero { padding: 2px 2px 10px 2px; margin-bottom: 6px; }
-    .dataset-hero .title-row { display:flex; align-items:center; gap:10px; }
-    .dataset-hero .title-row .icon { font-size:21px; }
-    .dataset-hero h2 { margin:0; font-size:21px; font-weight:700; color:#111827; }
-    .dataset-hero .meta { color:#6B7280; font-size:13px; margin: 5px 0 0 31px; }
-    .dataset-hero .desc { color:#9CA3AF; font-size:12.5px; margin: 3px 0 0 31px; font-style: italic; }
+    .dataset-hero { padding: 4px 2px 12px 2px; margin-bottom: 6px; }
+    .dataset-hero .title-row { display:flex; align-items:baseline; gap:12px; flex-wrap: wrap; }
+    .dataset-hero .title-row .icon { font-size:26px; align-self: center; }
+    .dataset-hero h2 {
+        margin:0; font-family: 'Oswald', 'Segoe UI', sans-serif; font-size:32px; font-weight:700;
+        letter-spacing: 0.01em; text-transform: uppercase; color:#111827; line-height: 1.1;
+    }
+    .dataset-hero .table-tag {
+        font-family: Consolas, "SFMono-Regular", monospace; font-size: 11px; font-weight: 600;
+        color: #2563EB; background: #EFF4FF; border: 1px solid #DBE6FE; border-radius: 6px;
+        padding: 3px 8px; white-space: nowrap;
+    }
+    .dataset-hero .meta { color:#6B7280; font-size:13px; margin: 6px 0 0 38px; }
+    .dataset-hero .desc { color:#9CA3AF; font-size:12.5px; margin: 3px 0 0 38px; font-style: italic; max-width: 62ch; }
 
     /* ---- KPI / gauge cards ---- */
     div[data-testid="stVerticalBlockBorderWrapper"] {
@@ -370,7 +380,7 @@ def _render_live_section():
             <div class="{badge_class}"><span class="pill-dot"></span>{badge_text}</div>
         </div>
         <div class="dataset-hero">
-            <div class="title-row"><span class="icon">🗄️</span><h2>fraud_transactions</h2></div>
+            <div class="title-row"><span class="icon">🗄️</span><h2>Real-Time Fraud Transaction Monitor</h2><span class="table-tag">fraud_transactions</span></div>
             <div class="meta">{stats['n_transactions']:,} rows · {db_size} · updating every ~1.5s</div>
             <div class="desc">Simulated Canada-wide e-commerce transaction stream, scored live by an unsupervised anomaly model</div>
         </div>
